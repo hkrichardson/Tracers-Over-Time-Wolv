@@ -7,6 +7,8 @@ editor: visual
 ```{r}
 library(readxl)
 library(dplyr)
+library(ggplot2)
+library(cowplot)
 ```
 
 ```{r}
@@ -27,12 +29,63 @@ for (n in 1:length(sitenames)){
 ```
 
 ```{r}
+#### Plot d18O ###
+c <- qplot(cabin$Day_of_year, cabin$d18O, xlab= "doy" , ylab ="d18O", xlim= c(100,300), ylim = c(-20,-9), main = "Cabin")+
+  theme_bw()
+i<- qplot(inlet$Day_of_year, inlet$d18O, xlab= "doy", xlim= c(100,300), ylim = c(-20,-9), main = "Lake Inlet")+
+  theme_bw()+
+  ylab(NULL)
+t<- qplot(tundra$Day_of_year, tundra$d18O, xlab= "doy", xlim= c(100,300), ylim = c(-20,-9), main = "Tundra")+
+  theme_bw()+
+  ylab(NULL)
+s<- qplot(shrub$Day_of_year, shrub$d18O, xlab= "doy", ylab ="d18O", xlim= c(100,300), ylim = c(-20,-9), main = "Shrub")+
+  theme_bw()
+f<- qplot(forest$Day_of_year, forest$d18O, xlab= "doy", xlim= c(100,300), ylim = c(-20,-9), main = "Forest")+
+  theme_bw()+
+  ylab(NULL)
+n<-qplot(nellie$Day_of_year, nellie$d18O, xlab= "doy", xlim= c(100,300), ylim = c(-20,-9), main = "NJ")+
+  theme_bw()+
+  ylab(NULL)
+w<-qplot(wolverine$Day_of_year, wolverine$d18O, xlab= "doy", ylab ="d18O", xlim= c(100,300), ylim = c(-20,-9), main = "Wolverine")+
+  theme_bw()
+
+d18O<-plot_grid(c,i,t,s,f,n,w)
+```
+
+```{r}
+#### Plot EC ###
 par(mfrow=c(3,3))
-plot(cabin$Day_of_year, cabin$d18O)
-plot(inlet$Day_of_year, inlet$d18O)
-plot(tundra$Day_of_year, tundra$d18O)
-plot(shrub$Day_of_year, shrub$d18O)
-plot(forest$Day_of_year, forest$d18O)
-plot(nellie$Day_of_year, nellie$d18O)
-plot(wolverine$Day_of_year, wolverine$d18O)
+plot(cabin$Day_of_year, cabin$SpC)
+plot(inlet$Day_of_year, inlet$SpC)
+plot(tundra$Day_of_year, tundra$SpC)
+plot(shrub$Day_of_year, shrub$SpC)
+plot(forest$Day_of_year, forest$SpC)
+plot(nellie$Day_of_year, nellie$SpC)
+plot(wolverine$Day_of_year, wolverine$SpC)
+
+#### Plot EC ###
+c <- qplot(cabin$Day_of_year, cabin$SpC, xlab= "doy" , ylab ="SpC", xlim= c(100,300), ylim = c(10,150), main = "Cabin")+
+  theme_bw()
+i<- qplot(inlet$Day_of_year, inlet$SpC, xlab= "doy", xlim= c(100,300), ylim = c(10,150), main = "Lake Inlet")+
+  theme_bw()+
+  ylab(NULL)
+t<- qplot(tundra$Day_of_year, tundra$SpC, xlab= "doy",xlim= c(100,300), ylim = c(10,150), main = "Tundra")+
+  theme_bw()+
+  ylab(NULL)
+s<- qplot(shrub$Day_of_year, shrub$SpC, xlab= "doy", ylab ="SpC", xlim= c(100,300), ylim = c(10,150),main = "Shrub")+
+  theme_bw()
+f<- qplot(forest$Day_of_year, forest$SpC, xlab= "doy",xlim= c(100,300), ylim = c(10,150), main = "Forest")+
+  theme_bw()+
+  ylab(NULL)
+n<-qplot(nellie$Day_of_year, nellie$SpC, xlab= "doy",xlim= c(100,300), ylim = c(10,150), main = "NJ")+
+  theme_bw()+
+  ylab(NULL)
+w<-qplot(wolverine$Day_of_year, wolverine$SpC, xlab= "doy", ylab ="SpC",xlim= c(100,300), ylim = c(10,150), main = "Wolverine")+
+  theme_bw()
+
+SpC<-plot_grid(c,i,t,s,f,n,w)
+```
+
+```{r}
+ECSpC<-plot_grid(d18O, SpC)
 ```
