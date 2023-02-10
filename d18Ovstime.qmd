@@ -1,0 +1,38 @@
+---
+title: "d18overtime"
+format: html
+editor: visual
+---
+
+```{r}
+library(readxl)
+library(dplyr)
+```
+
+```{r}
+##### Import data ######
+setwd("/Users/hannahrichardson/Documents/MATLAB/Research/")
+data<-read_xlsx("geochem2.xlsx", sheet = "New_Tundra_Mixing", col_names = T)
+```
+
+```{r}
+sitenames= c("cabin", "forest", "shrub", "inlet", "tundra", "nellie", "wolverine")
+```
+
+```{r}
+for (n in 1:length(sitenames)){
+  stream <-data %>% filter(grepl(sitenames[n], Site, ignore.case =T))
+  assign((as.character(sitenames[n])), stream)
+}
+```
+
+```{r}
+par(mfrow=c(3,3))
+plot(cabin$Day_of_year, cabin$d18O)
+plot(inlet$Day_of_year, inlet$d18O)
+plot(tundra$Day_of_year, tundra$d18O)
+plot(shrub$Day_of_year, shrub$d18O)
+plot(forest$Day_of_year, forest$d18O)
+plot(nellie$Day_of_year, nellie$d18O)
+plot(wolverine$Day_of_year, wolverine$d18O)
+```
